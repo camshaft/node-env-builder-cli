@@ -1,0 +1,2 @@
+INHERIT=default-local
+DEFAULT_LOCAL=1

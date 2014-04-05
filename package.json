@@ -1,0 +1,33 @@
+{
+  "name": "env-builder-cli",
+  "version": "0.1.0",
+  "description": "CLI for env-builder",
+  "main": "index.js",
+  "bin": {
+    "env-builder": "bin/env-builder"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/camshaft/node-env-builder-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "env",
+    "builder"
+  ],
+  "author": "Cameron Bytheway <bytheway.cameron@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/camshaft/node-env-builder-cli/issues"
+  },
+  "homepage": "https://github.com/camshaft/node-env-builder-cli",
+  "dependencies": {
+    "commander": "^2.2.0",
+    "env-builder": "^0.1.0",
+    "env-builder-fs": "^0.1.0",
+    "env-builder-github": "^0.1.0"
+  }
+}

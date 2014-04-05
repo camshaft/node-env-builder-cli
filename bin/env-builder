@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies
+ */
+
+var program = require('commander');
+var builder = require('..');
+var write = require('fs').writeFileSync;
+
+program
+  .version(require('../package.json').version)
+  .usage('<source> [options]')
+  .option('-e, --env <env>', 'name of the env', 'prod')
+  .option('-t, --types <types>', 'comma-separated list of types associated with the app')
+  .option('-a, --app <app>', 'name of the app', 'NO APP SPECIFIED')
+  .option('-o, --out [out]', 'write the env to a file (defaut is .env)');
+
+program.on('--help', function() {
+  console.log([
+  '  Examples:',
+  '',
+  '    local path',
+  '      $ env-builder path/to/config -a my-app',
+  '      KEY=VALUE',
+  '      OTHER=FOO',
+  '      MY_APP_URL=http://myapp.example.com',
+  '',
+  '    pipe to stdout',
+  '      $ env-builder path/to/config > .env',
+  '',
+  '    write to .env file',
+  '      $ env-builder path/to/config -o',
+  '',
+  '    github repo',
+  '      $ GITHUB_TOKEN=my-oauth-token env-builder org/repo',
+  ''
+  ].join('\n'));
+});
+
+program.parse(process.argv);
+
+var source = program.args[0];
+if (!source) error('missing source');
+
+var env = program.env;
+var types = program.types;
+types = types ? types.split(',') : [];
+var app = program.app;
+
+process.stderr.write('Building ENV from ' + source);
+builder(source, env, types, app, function(err, ENV) {
+  if (err) error(err);
+  process.stderr.write(' done\n');
+  if (!program.out) return process.stdout.write(format(ENV));
+  if (program.out === true) program.out = '.env';
+  write(program.out, format(ENV));
+});
+
+function format(ENV) {
+  return Object.keys(ENV).sort().map(function(key) {
+    return key + '=' + ENV[key];
+  }).join('\n') + '\n';
+}
+
+function error(err) {
+  console.error(err.stack || err.message || err);
+  process.exit(1);
+}

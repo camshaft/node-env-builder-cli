@@ -1,0 +1,2 @@
+MYAPP_DEFAULT=1
+INHERIT=myapp-default
