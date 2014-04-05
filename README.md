@@ -83,24 +83,16 @@ The directory structure for the config files might look something like this:
 │   │   ├── default
 │   │   ├── test
 │   │   └── local
-│   ├── api
-│   │   ├── default
-│   │   ├── test
-│   │   └── local
-│   └── auth
+│   └── customer-facing
 │       ├── default
 │       ├── test
 │       └── local
 └── apps
-    ├── my-first-app
+    ├── my-app
     │   ├── default
     │   ├── test
     │   └── local
-    ├── my-second-app
-    │   ├── default
-    │   ├── test
-    │   └── local
-    └── my-third-app
+    └── my-other-app
         ├── default
         ├── test
         └── local
